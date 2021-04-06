@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.grpc.matrixmult";
+option java_outer_classname = "MatrixMult";
+option objc_class_prefix = "MM";
+
+package matrixmult;
+
+service MatrixService{
+
+  rpc MultiplyBlock (MatrixRequest) returns (MatrixReply) {}
+  rpc AddBlock (MatrixRequest) returns (MatrixReply) {}
+}
+
+message MatrixRequest {
+  repeated int32 One = 1;
+  repeated int32 Two = 2;
+  int32 BlockSize = 3;
+}
+
+// answer is one array back
+
+message MatrixReply {
+
+  repeated int32 C = 1;
+}
+
+
+
