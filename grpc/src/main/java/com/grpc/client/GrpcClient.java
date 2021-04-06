@@ -278,6 +278,8 @@ public class GrpcClient
             }
             System.out.println("");
         }
-        channel.shutdown();
+        channel1.shutdown();
+        channel2.shutdown();
+        channel3.shutdown();
     }
 }
