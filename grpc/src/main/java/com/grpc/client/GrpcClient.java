@@ -10,9 +10,16 @@ public class GrpcClient
 {
     public static void main(String[] args) 
     {
+        //SERVER 0 & CLIENT (CWK.CER) - DOES ADDITION ONLY 
+        ManagedChannel channel1 = ManagedChannelBuilder.forAddress("ec2-3-83-193-156.compute-1.amazonaws.com ", 8080).usePlaintext().build();
+        //SERVER 1
+        ManagedChannel channel2 = ManagedChannelBuilder.forAddress("ec2-100-24-20-72.compute-1.amazonaws.com ", 8080).usePlaintext().build();
+        //SERVER 2
+        ManagedChannel channel3 = ManagedChannelBuilder.forAddress("ec2-52-202-102-247.compute-1.amazonaws.com   ", 8080).usePlaintext().build();
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080).usePlaintext().build();
-        MatrixServiceGrpc.MatrixServiceBlockingStub stub = MatrixServiceGrpc.newBlockingStub(channel);
+        MatrixServiceGrpc.MatrixServiceBlockingStub stub1 = MatrixServiceGrpc.newBlockingStub(channel1);
+        MatrixServiceGrpc.MatrixServiceBlockingStub stub2 = MatrixServiceGrpc.newBlockingStub(channel2);
+        MatrixServiceGrpc.MatrixServiceBlockingStub stub3 = MatrixServiceGrpc.newBlockingStub(channel3);
 
         //     int[][] A = {
         //     {1, 2, 3, 4, 5, 6, 7, 8,     9, 10, 11, 12, 13, 14, 15, 16},
@@ -139,7 +146,7 @@ public class GrpcClient
                 //SET BLOCK C2 FOR ALL THE C2 REQUESTS 
                 B1C2.addTwo(B[i][j]); // C2
                 D1C2.addTwo(B[i][j]); // C2
-            }
+            }   
         } 
 
 
@@ -161,14 +168,14 @@ public class GrpcClient
 
         // MULTIPLCATION OF REPEATED ARRAYS 
 
-        MatrixReply MultiplyA1A2 = stub.multiplyBlock(A1A2.build()); // we send the values to server and wait for the reply to come into MultiplyRQ1
-        MatrixReply MultiplyB1C2 = stub.multiplyBlock(B1C2.build());
-        MatrixReply MultiplyA1B2 = stub.multiplyBlock(A1B2.build());
-        MatrixReply MultiplyB1D2 = stub.multiplyBlock(B1D2.build());
-        MatrixReply MultiplyC1A2 = stub.multiplyBlock(C1A2.build());
-        MatrixReply MultiplyD1C2 = stub.multiplyBlock(D1C2.build());
-        MatrixReply MultiplyC1B2 = stub.multiplyBlock(C1B2.build());
-        MatrixReply MultiplyD1D2 = stub.multiplyBlock(D1D2.build());
+        MatrixReply MultiplyA1A2 = stub2.multiplyBlock(A1A2.build()); // we send the values to server and wait for the reply to come into MultiplyRQ1
+        MatrixReply MultiplyB1C2 = stub2.multiplyBlock(B1C2.build());
+        MatrixReply MultiplyA1B2 = stub2.multiplyBlock(A1B2.build());
+        MatrixReply MultiplyB1D2 = stub2.multiplyBlock(B1D2.build());
+        MatrixReply MultiplyC1A2 = stub3.multiplyBlock(C1A2.build());
+        MatrixReply MultiplyD1C2 = stub3.multiplyBlock(D1C2.build());
+        MatrixReply MultiplyC1B2 = stub3.multiplyBlock(C1B2.build());
+        MatrixReply MultiplyD1D2 = stub3.multiplyBlock(D1D2.build());
 
 
         // ADDITION 
@@ -215,10 +222,10 @@ public class GrpcClient
         }
 
         //OUR FINAL RESULT IS THESE 4 BLOCKS 
-        MatrixReply A3 = stub.addBlock(A3ADD.build()); // we send the values to server and wait for the reply to come into MultiplyRQ1
-        MatrixReply B3 = stub.addBlock(B3ADD.build());
-        MatrixReply C3 = stub.addBlock(C3ADD.build());
-        MatrixReply D3 = stub.addBlock(D3ADD.build());
+        MatrixReply A3 = stub1.addBlock(A3ADD.build()); // we send the values to server and wait for the reply to come into MultiplyRQ1
+        MatrixReply B3 = stub1.addBlock(B3ADD.build());
+        MatrixReply C3 = stub1.addBlock(C3ADD.build());
+        MatrixReply D3 = stub1.addBlock(D3ADD.build());
 
 
         // PUT TOGETHER THE FINAL PIECE, I.E. THE FINAL ARRAY
