@@ -128,7 +128,6 @@ public class GrpcClient
             }
         }
 
-
         for (int i = bSize; i < MAX; i++) 
         { 
             for (int j = 0; j < bSize; j++)
@@ -275,4 +274,3 @@ public class GrpcClient
         channel.shutdown();
     }
 }
-
